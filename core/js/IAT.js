@@ -9,39 +9,16 @@ function randomString(length) {
 }
 
 // Loads the input file and starts introduction
-function getCookie(cname) {
-	var name = cname + "=";
-	var decodedCookie = decodeURIComponent(document.cookie);
-	var ca = decodedCookie.split(';');
-	for(var i = 0; i <ca.length; i++) {
-	  var c = ca[i];
-	  while (c.charAt(0) == ' ') {
-		c = c.substring(1);
-	  }
-	  if (c.indexOf(name) == 0) {
-		  console.log(c.substring(name.length, c.length))
-		return c.substring(name.length, c.length);
-		
-	  }
-	}
-	console.log("hello0")
-
-	return "";
-  }
 function initialize()
 {	
-	var userID = document.cookie
-
 	// get active template & load data into global variable
 	$.getJSON("templates/active.txt", function(input) {
 		document.title = input.active + " IAT";
 		$.getJSON("templates/"+input.active+"/input.txt", function(data) { 
 			template = data;
-			$.get("core/instruct0.html"
-			, function(data) {
+			$.get("core/instruct0.html", function(data) {
 				$("#instructions").html(data);
-				console.log(document.cookie)
-				$("#subID").val(getCookie("PHPSESSID"));
+				$("#subID").val(randomString(10));
 			});
 		});
 	});
@@ -491,8 +468,11 @@ function IsNumeric(input)
 // not currently used
 function checkDemographics()
 {
-	console.log("click!")
-    gender = $("input[name=gender]:checked").val();
+	console.log("cli")
+    gender = [];
+	$("input[name=gender]:checked").each(function() { gender.push($(this).val()); });
+	console.log($("input[name=gender]:checked"));
+	console.log($("input[id=gender_other]:checked").val())
     age = $("#age option:selected").val();
 	sub = $("#sub").val();
     loc = $("#loc option:selected").val().replace(/[^A-Za-z0-9,]/g,' ');
@@ -500,6 +480,8 @@ function checkDemographics()
 	$("input[name=race]:checked").each(function() { races.push($(this).val()); });
     // income = $("#income").val();
     education = $("#edu option:selected").val();
+
+
     
     // alert(income+"\n"+parseFloat(income)+"\n");
  
@@ -539,12 +521,25 @@ function checkDemographics()
         error=true;
         errmsg += "<div class='error'>Please enter a valid identifier</div>";
     }
+	
+	for (let i = 0; i <gender.length; i++){
+		if (gender[i]=="Other"){
+			gender[i]=$("input[name=custom_gender]").val();
+		}
+	}
+
+	for (let i = 0; i <races.length; i++){
+		if (races[i]=="Other"){
+			races[i]=$("input[name=custom_ethnicity]").val();
+		}
+	}
 	// Output error message if input not valid
 	
     if(error==false)
     {
 		subject = sub;
-        var demos = gender+'\t';
+        var demos = "";
+		demos += gender.join(',')+'\t';
         demos += age+'\t';
         demos += loc+'\t';
         demos += races.join(',')+'\t';
@@ -557,15 +552,9 @@ function checkDemographics()
 		 
 		//  $.post("\\core\\fileManager.php", { 'subject': subject, 'src': "survey", 'data': demos });
 		 console.log( { 'subject': subject, 'src': "survey", 'data': demos });
+		 document.cookie =  { 'subject': subject, 'src': "survey", 'data': demos }
+		 $.post("\\templates\\race\\output\\demographics\\demoWrite.php", { 'subject': subject, 'src': "survey", 'data': demos }), function() {location.href = '\\index.php\\'};
 
-		$.post("\\templates\\race\\output\\demographics\\demoWrite.php", { 'subject': subject, 'src': "survey", 'data': demos });
-		document.cookie = "userID="+subject + ";"
-		console.log(document.cookie)
-
-		console.log(getCookie("userID"))
-		window.location.href = '\\index.php';
-
-		//  $.post("core/writeFile.php", { 'subject': subject, 'src': "survey", 'data': demos }, function() {location.href = 'instruct2.php?sub='+sub;});
     }
     else
     {

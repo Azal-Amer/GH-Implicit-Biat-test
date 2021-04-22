@@ -1,8 +1,6 @@
 <?php 
 require_once("IATname.inc"); 
 require_once('locations.php');
-echo "potato";
-
 ?>
 <html>
 <head>
@@ -21,14 +19,35 @@ echo "potato";
         <ol id="demoglist">
             <li><p>Gender</p>
                 <p> 
-                    <input id="gender_male" name="gender" type="radio" value="Male"/>
+                    <input id="gender_male" name="gender" type="checkbox" value="Male"/>
                     <label for="gender_male">Male</label>
                 <br>     
-                    <input id="gender_female" name="gender" type="radio" value="Female"/>
+                    <input id="gender_female" name="gender" type="checkbox" value="Female"/>
                     <label for="gender_female">Female</label>
                 <br>     
-                    <input id="gender_none" name="gender" type="radio" value="none"/>
-                    <label for="gender_none">Decline to answer</label>
+                    <input id="gender_enby" name="gender" type="checkbox" value="Nonbinary"/>
+                    <label for="gender_enby">Nonbinary</label>
+                <br>     
+                    <input id="gender_genderqueer" name="gender" type="checkbox" value="Genderqueer"/>
+                    <label for="gender_genderqueer">Genderqueer</label>
+                <br>     
+                    <input id="gender_genderfluid" name="gender" type="checkbox" value="Genderfluid"/>
+                    <label for="gender_genderfluid">Genderfluid</label>
+                <br>     
+                    <input id="gender_agender" name="gender" type="checkbox" value="Agender"/>
+                    <label for="gender_agender">Agender</label>
+                
+                <br>     
+                    <input id="gender_none" name="gender" type="checkbox" value="none"/>
+                    <label for="gender_none">Don't know/choose not to answer</label>
+                <br>    
+                    <input id="gender_other" name="gender" type="checkbox" value="Other"/>
+                    <label for="gender_other">Other</label>
+                    
+                <br>
+                    <p>If you answered other, please respond here:</p>
+                    <input id="gender" name="custom_gender" type="text"  value=""/>
+
                 </p>
             </li>            
             <li><p><label for="age">Year of Birth</label></p>
@@ -52,10 +71,10 @@ echo "potato";
                     <label for="race_white">White</label>
                 <br>      
                     <input id="race_black" name="race" type="checkbox" value="Black"/> 
-                    <label for="race_black">Black, African-American, or Negro</label>
+                    <label for="race_black">Black or African-American</label>
                 <br>    
                     <input id="race_latino" name="race" type="checkbox" value="Latino"/> 
-                    <label for="race_latino">Hispanic or Latino</label>
+                    <label for="race_latino">Hispanic or Latinx</label>
                 <br>
                     <input id="race_indian" name="race" type="checkbox" value="Indian"/> 
                     <label for="race_indian">Asian Indian</label>
@@ -64,13 +83,17 @@ echo "potato";
                     <label for="race_asian">Other Asian</label>
                 <br>
                     <input id="race_hawaii" name="race" type="checkbox" value="Hawaiian"/> 
-                    <label for="race_hawaii">Hawaiian, Pacific Islander</label>
+                    <label for="race_hawaii">Hawaiian or Pacific Islander</label>
                 <br> 
                     <input id="race_amind" name="race" type="checkbox" value="AmInd"/> 
-                    <label for="race_amind">American Indian or Alaskan Native</label>
+                    <label for="race_amind">Indigenous American or Alaskan Native</label>
                 <br> 
                     <input id="race_other" name="race" type="checkbox" value="Other"/> 
                     <label for="race_other">Other</label>
+
+                <br>
+                    <p>If you answered other, please respond here:</p>
+                    <input id="gender" name="custom_ethnicity" type="text"  value=""/>
                 </p>
             </li>         
 
@@ -97,11 +120,10 @@ echo "potato";
         </ol>
 		<div id="error-1"></div>
 		<div id="participant">
-			<p>Enter your name, a pseudonym, or continue with the random identifier provided.</p>
-			<!-- <p><input type="text" id="sub" name="sub" value="<?php echo base_convert(mt_rand(0x19A100, 0x39AA3FF), 10, 36); ?>"></p> -->
-            <p><input type="text" id="sub" name="sub" value="<?php echo $_COOKIE["PHPSESSID"]; ?>"></p>
-
+			<p>Unique Random Identifier.</p>
+			<p><input type="text" disabled = "True" id="sub" name="sub" value="<?php echo base_convert(mt_rand(0x19A100, 0x39AA3FF), 10, 36); ?>"></p>
 		</div>
+        
         <input type="button" value="Submit Demographics" onclick="checkDemographics()"/>
 
     </form>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN">
 <html>
 <head>
@@ -8,7 +7,7 @@
 <style type="text/css"> @import "core/css/iat.css";</style>	
 <script type="text/javascript" src="core/js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="core/js/jquery-ui-1.8.18.custom.min.js"></script>
-<script type="text/javascript" src="core/js/IAT.js"></script>
+<script type="text/javascript" src="core/js/IAT_gform.js"></script>
 <script type="text/javascript">
 	initialize();
 </script>
