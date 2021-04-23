@@ -491,15 +491,24 @@ function IsNumeric(input)
 // not currently used
 function checkDemographics()
 {
-	console.log("click!")
-    gender = $("input[name=gender]:checked").val();
-    age = $("#age option:selected").val();
-	sub = $("#sub").val();
-    loc = $("#loc option:selected").val().replace(/[^A-Za-z0-9,]/g,' ');
+	console.log("cli")
+    gender = [];
+	$("input[name=gender]:checked").each(function() { gender.push($(this).val()); });
+	console.log($("input[name=gender]:checked"));
+	console.log($("input[id=gender_other]:checked").val())
+	dietary = [];
+	$("input[name=dietary]:checked").each(function() { dietary.push($(this).val()); });
+	console.log($("input[name=dietary]:checked"));
+	console.log($("input[id=dietary_other]:checked").val())
+    // age = $("#age option:selected").val();
+	sub = getCookie("PHPSESSID")
+	// sub is equal to php
+    // loc = $("#loc option:selected").val().replace(/[^A-Za-z0-9,]/g,' ');
     races = [];
 	$("input[name=race]:checked").each(function() { races.push($(this).val()); });
     // income = $("#income").val();
-    education = $("#edu option:selected").val();
+    education = $("input[name=grade]:checked").val();
+	console.log($("#grade").val());
     
     // alert(income+"\n"+parseFloat(income)+"\n");
  
@@ -508,49 +517,73 @@ function checkDemographics()
     var errmsg = "";
     console.log(error + "error")
 	console.log(errmsg + "errmsg")
+  
     if(gender==null)
     {
         error=true;
         errmsg += "<div class='error'>Please choose an option for gender</div>";
     }    
-	if(age=="unselected")
-    {
-        error=true;
-        errmsg += "<div class='error'>Please state the year you were born</div>";
-    }
-	if(loc.length == 0)
-    {
-        error=true;
-        errmsg += "<div class='error'>Please indicate your current location</div>";
-    }
+	// if(age=="unselected")
+    // {
+    //     error=true;
+    //     errmsg += "<div class='error'>Please state the year you were born</div>";
+    // }
+	// if(loc.length == 0)
+    // {
+    //     error=true;
+    //     errmsg += "<div class='error'>Please indicate your current location</div>";
+    // }
     if(races==null)
     {
         error=true;
         errmsg += "<div class='error'>Please indicate your ethnicity</div>";
     }
 
-    if(education=="unselected")
+    if(education==null)
     {
         error=true;
         errmsg += "<div class='error'>Please indicate your highest level of education</div>";
+		
     }
 	if(sub.length == 0)
     {
         error=true;
         errmsg += "<div class='error'>Please enter a valid identifier</div>";
     }
+	for (let i = 0; i <gender.length; i++){
+		if (gender[i]=="Other"){
+			gender[i]=$("input[name=custom_gender]").val();
+		}
+	}
+	for (let i = 0; i <dietary.length; i++){
+		if (dietary[i]=="Allergy"){
+			dietary[i]+=";" + $("input[name=custom_allergy]").val();
+		}
+	}
+	for (let i = 0; i <dietary.length; i++){
+		if (dietary[i]=="Other"){
+			dietary[i]= $("input[name=custom_dietary]").val();
+		}
+	}
+
+
+	for (let i = 0; i <races.length; i++){
+		if (races[i]=="Other"){
+			races[i]=$("input[name=custom_ethnicity]").val();
+		}
+	}
 	// Output error message if input not valid
 	
     if(error==false)
     {
 		subject = sub;
         var demos = gender+'\t';
-        demos += age+'\t';
-        demos += loc+'\t';
+        // demos += age+'\t';
+        // demos += loc+'\t';
         demos += races.join(',')+'\t';
         // demos += income.replace(/[^0-9.]/g,'')+'\t';
-        demos += education+'\n';
-		
+        demos += education +'\t';
+		demos += dietary+'\n';
 
 		// $.post("\\core\\fileManager.php", { 'op':'writeoutput', 'template':template.name, 
  		// 	'subject': subject, 'data': demos }), function() {location.href = 'index.html?sub='+sub;};	
@@ -558,7 +591,7 @@ function checkDemographics()
 		//  $.post("\\core\\fileManager.php", { 'subject': subject, 'src': "survey", 'data': demos });
 		 console.log( { 'subject': subject, 'src': "survey", 'data': demos });
 
-		$.post("\\templates\\race\\output\\demographics\\demoWrite.php", { 'subject': subject, 'src': "survey", 'data': demos });
+		$.post("\\templates\\race\\demographics\\demoWrite.php", { 'subject': subject, 'src': "survey", 'data': demos });
 		document.cookie = "userID="+subject + ";"
 		console.log(document.cookie)
 

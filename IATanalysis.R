@@ -1,6 +1,6 @@
 # Set the path to the IAT folder here (be sure to include trailing slash)
 # on Linux (use a single forward slash):
-base.dir = "C://xampp//htdocs"
+base.dir = "C://xampp//htdocs//"
 # on Windows (use double forward slashes):
 # base.dir = "C://Users//winteram//Documents//IAT//"
 
@@ -8,7 +8,7 @@ base.dir = "C://xampp//htdocs"
 fd = '//'
 
 # Set the template you want to analyze here
-template.name = "Science"
+template.name = "Race"
 output.dir = paste(base.dir,"templates",fd,template.name,fd,"output",fd,sep="")
 
 setwd(output.dir)
