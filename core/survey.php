@@ -78,11 +78,14 @@ session_start()
                     <input id="race_latino" name="race" type="checkbox" value="Latino"/> 
                     <label for="race_latino">Hispanic or Latinx</label>
                 <br>
-                    <input id="race_indian" name="race" type="checkbox" value="Indian"/> 
-                    <label for="race_indian">Asian Indian</label>
+                    <input id="race_indian" name="race" type="checkbox" value="South-Asian"/> 
+                    <label for="race_indian">South Asian</label>
                 <br> 
-                    <input id="race_asian" name="race" type="checkbox" value="Asian"/> 
-                    <label for="race_asian">Other Asian</label>
+                    <input id="race_asian" name="race" type="checkbox" value="East-Asian"/> 
+                    <label for="race_asian">East Asian</label>
+                <br> 
+                    <input id="race_asian" name="race" type="checkbox" value="South-East-Asian"/> 
+                    <label for="race_asian">South East Asian</label>
                 <br>
                     <input id="race_hawaii" name="race" type="checkbox" value="Hawaiian"/> 
                     <label for="race_hawaii">Hawaiian or Pacific Islander</label>
@@ -113,6 +116,9 @@ session_start()
                     <br>
                         <input id="grade_senior" name="grade" type="radio" value="12"/> 
                         <label for="grade_senior">Senior (12th)</label>
+                    <br>
+                        <input id="grade_teacher" name="grade" type="radio" value="-1"/> 
+                        <label for="grade_teacher">Teacher/Faculty</label>
                     </p>
             </li>
             <li><p>Dietary Prefrences</p>

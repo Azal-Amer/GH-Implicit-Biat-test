@@ -18,7 +18,7 @@
     
 <div id="instructions">
     Javascript must be enabled for the application to run.<br><br>
-    Please enable javascript to continue.<br><br>
+    Please enable javascript to continue or message Azal, Kaylee, and Ryan at amera23@greenhill.org or text us at (214)-217-9389.<br><br>
 </div>
 
 </body>
